@@ -35,35 +35,119 @@ const styles = StyleSheet.create({
     paddingBottom: 60,
     paddingHorizontal: 50,
     fontSize: 11,
+    position: 'relative',
+  },
+  backgroundWatermark: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    opacity: 0.03,
+    width: 400,
+    height: 400,
+  },
+  footballPattern: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0.02,
+  },
+  cornerDecoration: {
+    position: 'absolute',
+    opacity: 0.08,
+  },
+  topLeftCorner: {
+    top: 20,
+    left: 20,
+    width: 80,
+    height: 80,
+    borderTop: '3pt solid #fbbf24',
+    borderLeft: '3pt solid #fbbf24',
+  },
+  bottomRightCorner: {
+    bottom: 20,
+    right: 20,
+    width: 80,
+    height: 80,
+    borderBottom: '3pt solid #fbbf24',
+    borderRight: '3pt solid #fbbf24',
+  },
+  sideAccent: {
+    position: 'absolute',
+    width: 4,
+    backgroundColor: '#fbbf24',
+    opacity: 0.15,
+  },
+  leftAccent: {
+    left: 0,
+    top: 100,
+    bottom: 100,
+  },
+  rightAccent: {
+    right: 0,
+    top: 100,
+    bottom: 100,
   },
   header: {
+    flexDirection: 'column',
+    marginBottom: 20,
+    paddingBottom: 15,
+    borderBottom: '2pt solid #1e293b',
+  },
+  headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: 15,
-    paddingBottom: 12,
-    borderBottom: '2pt solid #1e293d',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  organizationBlock: {
+    flex: 1,
+  },
+  organizationNameMain: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#1e293b',
+    marginBottom: 2,
+  },
+  organizationNameSub: {
+    fontSize: 8,
+    color: '#64748b',
+  },
+  headerLogoContainer: {
+    marginLeft: 10,
   },
   headerLogo: {
-    width: 60,
-    height: 30,
+    width: 50,
+    height: 50,
     objectFit: 'contain',
   },
-  headerInfo: {
-    textAlign: 'right',
-    fontSize: 9,
-    lineHeight: 1.4,
-  },
-  organizationName: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#1e293d',
-    marginBottom: 4,
-  },
-  contactInfo: {
+  infoLine: {
     fontSize: 8,
-    color: '#4a5565',
-    marginTop: 2,
+    color: '#475569',
+    lineHeight: 1.5,
+    marginBottom: 2,
+  },
+  bankInfo: {
+    fontSize: 7,
+    color: '#64748b',
+    lineHeight: 1.5,
+    marginTop: 5,
+  },
+  headerTop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+    paddingBottom: 12,
+    borderBottom: '1pt solid #e2e8f0',
+  },
+  headerLeft: {
+    flex: 1,
+  },
+  headerRight: {
+    alignItems: 'flex-end',
   },
   metaRow: {
     flexDirection: 'row',
@@ -106,8 +190,24 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   signatureRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 40,
+  },
+  signatureLeft: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    flex: 1,
+  },
+  signatureCenter: {
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  signatureRight: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    flex: 1,
   },
   signatureOrgName: {
     fontSize: 10,
@@ -115,9 +215,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   qrCode: {
-    width: 60,
-    height: 60,
-    marginVertical: 8,
+    width: 80,
+    height: 80,
   },
   signeeName: {
     fontSize: 10,
@@ -179,23 +278,47 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
   return (
     <Document>
       <Page size="A4" style={styles.page}>
+        {/* Background Decorative Elements */}
+        {/* Corner Decorations */}
+        <View style={[styles.cornerDecoration, styles.topLeftCorner]} fixed />
+        <View style={[styles.cornerDecoration, styles.bottomRightCorner]} fixed />
+        
+        {/* Side Accent Lines */}
+        <View style={[styles.sideAccent, styles.leftAccent]} fixed />
+        <View style={[styles.sideAccent, styles.rightAccent]} fixed />
+        
+        {/* Central Watermark - Football/Star Pattern */}
+        <View style={styles.backgroundWatermark} fixed>
+          <Text style={{ fontSize: 200, color: '#cbd5e1', textAlign: 'center' }}>⚽</Text>
+        </View>
+        
         {/* Header - Only on first page */}
         <View style={styles.header}>
-          <View>
-            {logoUrl && <Image src={logoUrl} style={styles.headerLogo} />}
-          </View>
-          <View style={styles.headerInfo}>
-            <Text style={styles.organizationName}>{organizationName}</Text>
-            {organizationAddress && (
-              <Text style={styles.contactInfo}>{organizationAddress}</Text>
-            )}
-            {organizationPhone && (
-              <Text style={styles.contactInfo}>Tel: {organizationPhone}</Text>
-            )}
-            {organizationEmail && (
-              <Text style={styles.contactInfo}>Email: {organizationEmail}</Text>
+          {/* Organization Name and Logo */}
+          <View style={styles.headerRow}>
+            <View style={styles.organizationBlock}>
+              <Text style={styles.organizationNameMain}>PFK AGMK MChJ</Text>
+              <Text style={styles.organizationNameSub}>Professional Football Club</Text>
+            </View>
+            {logoUrl && (
+              <View style={styles.headerLogoContainer}>
+                <Image src={logoUrl} style={styles.headerLogo} />
+              </View>
             )}
           </View>
+          
+          {/* Contact Information */}
+            <Text style={styles.infoLine}>
+            Toshkent viloyati, Olmaliq shahri, Olimpiya ko'chasi, Metallurg stadioni
+            </Text>
+          <Text style={styles.infoLine}>
+            Email: pfcolmaliq@mail.ru
+          </Text>
+          
+          {/* Bank Information */}
+          <Text style={styles.bankInfo}>
+            "O'zmilliybank" AJ Olmaliq filiali  |  h/r: 2020 8000 6047 5378 1001  |  MFO: 00450  |  STIR: 301023341
+          </Text>
         </View>
 
         {/* Meta Information */}
@@ -224,14 +347,23 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
         {/* Signature Section - Keep together on same page */}
         <View style={styles.signatureSection} wrap={false}>
           <View style={styles.signatureRow}>
-            <Text style={styles.signatureOrgName}>{organizationName}</Text>
+            {/* Left: Organization Name */}
+            <View style={styles.signatureLeft}>
+              <Text style={styles.signatureOrgName}>{organizationName}</Text>
+            </View>
             
-            {qrCodeUrl && (
-              <Image src={qrCodeUrl} style={styles.qrCode} />
-            )}
+            {/* Center: QR Code */}
+            <View style={styles.signatureCenter}>
+              {qrCodeUrl && (
+                <Image src={qrCodeUrl} style={styles.qrCode} />
+              )}
+            </View>
             
-            <Text style={styles.signeeName}>{signeeName}</Text>
-            <Text style={styles.signeeTitle}>{signeeTitle}</Text>
+            {/* Right: Signee Information */}
+            <View style={styles.signatureRight}>
+              <Text style={styles.signeeName}>{signeeName}</Text>
+              <Text style={styles.signeeTitle}>{signeeTitle}</Text>
+            </View>
           </View>
         </View>
 
