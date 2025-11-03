@@ -112,7 +112,7 @@ const WriterDashboard = () => {
                   className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center gap-2"
                 >
                   <Sparkles className="w-5 h-5" />
-                  Professional Designer
+                  Xat yaratish
                 </button>
                 <button 
                   onClick={() => setIsModalOpen(true)}
