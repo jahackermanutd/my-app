@@ -31,16 +31,17 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
-    padding: '20mm',
-    fontSize: 12,
-    lineHeight: 1.5,
+    paddingTop: 40,
+    paddingBottom: 60,
+    paddingHorizontal: 50,
+    fontSize: 11,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 10,
-    paddingBottom: 10,
+    marginBottom: 15,
+    paddingBottom: 12,
     borderBottom: '2pt solid #1e293d',
   },
   headerLogo: {
@@ -50,24 +51,25 @@ const styles = StyleSheet.create({
   },
   headerInfo: {
     textAlign: 'right',
-    fontSize: 10,
+    fontSize: 9,
+    lineHeight: 1.4,
   },
   organizationName: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: 'bold',
     color: '#1e293d',
-    marginBottom: 3,
+    marginBottom: 4,
   },
   contactInfo: {
-    fontSize: 9,
+    fontSize: 8,
     color: '#4a5565',
     marginTop: 2,
   },
   metaRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 5,
+    marginBottom: 15,
     fontSize: 10,
   },
   reference: {
@@ -77,61 +79,66 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   recipient: {
-    marginBottom: 10,
-    fontSize: 11,
-    lineHeight: 1.5,
+    marginBottom: 15,
+    fontSize: 10,
+    lineHeight: 1.4,
   },
   recipientName: {
     fontWeight: 'bold',
+    marginBottom: 3,
   },
   subject: {
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: 'bold',
     marginVertical: 15,
     textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
   bodyText: {
-    fontSize: 12,
-    lineHeight: 1.6,
+    fontSize: 11,
+    lineHeight: 1.8,
     textAlign: 'justify',
-    marginBottom: 10,
+    marginBottom: 12,
   },
   signatureSection: {
-    marginTop: 40,
-    marginBottom: 20,
+    marginTop: 30,
+    marginBottom: 40,
   },
   signatureRow: {
     flexDirection: 'column',
     alignItems: 'center',
   },
   signatureOrgName: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 8,
   },
   qrCode: {
-    width: 70,
-    height: 70,
-    marginVertical: 10,
+    width: 60,
+    height: 60,
+    marginVertical: 8,
   },
   signeeName: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: 'bold',
-    marginTop: 10,
+    marginTop: 8,
   },
   signeeTitle: {
-    fontSize: 10,
+    fontSize: 9,
     color: '#4a5565',
-    marginTop: 3,
+    marginTop: 2,
   },
   footer: {
-    marginTop: 20,
+    position: 'absolute',
+    bottom: 30,
+    left: 50,
+    right: 50,
     paddingTop: 10,
     borderTop: '1pt solid #e2e8f0',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    fontSize: 9,
+    fontSize: 8,
     color: '#4a5565',
   },
 });
@@ -172,7 +179,7 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Header - Fixed at top */}
+        {/* Header - Only on first page */}
         <View style={styles.header}>
           <View>
             {logoUrl && <Image src={logoUrl} style={styles.headerLogo} />}
@@ -214,8 +221,8 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
           </Text>
         ))}
 
-        {/* Signature Section */}
-        <View style={styles.signatureSection}>
+        {/* Signature Section - Keep together on same page */}
+        <View style={styles.signatureSection} wrap={false}>
           <View style={styles.signatureRow}>
             <Text style={styles.signatureOrgName}>{organizationName}</Text>
             
@@ -229,9 +236,11 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
         </View>
 
         {/* Footer - Natural flow */}
-        <View style={styles.footer}>
+        <View style={styles.footer} fixed>
           <Text>{organizationName}</Text>
-          <Text>Page 1</Text>
+          <Text render={({ pageNumber, totalPages }) => (
+            `Page ${pageNumber} of ${totalPages}`
+          )} />
         </View>
       </Page>
     </Document>
