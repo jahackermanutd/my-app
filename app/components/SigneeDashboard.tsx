@@ -57,7 +57,7 @@ const SigneeDashboard = () => {
               <div className="font-semibold text-slate-800">{user?.name}</div>
               <div className="text-sm text-slate-600">{user?.email}</div>
             </div>
-            <button onClick={logout} className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2">
+            <button onClick={logout} className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 hover:shadow-md active:scale-95 transition-all duration-200 flex items-center gap-2 cursor-pointer">
               <LogOut className="w-4 h-4" />
               Chiqish
             </button>
@@ -130,15 +130,15 @@ const SigneeDashboard = () => {
                     </div>
                   </div>
                   <div className="flex gap-3">
-                    <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold flex items-center gap-2">
+                    <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 hover:shadow-md active:scale-95 transition-all duration-200 font-semibold flex items-center gap-2 cursor-pointer">
                       <CheckCircle className="w-4 h-4" />
                       Tasdiqlash
                     </button>
-                    <button className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-semibold flex items-center gap-2">
+                    <button className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 hover:shadow-md active:scale-95 transition-all duration-200 font-semibold flex items-center gap-2 cursor-pointer">
                       <X className="w-4 h-4" />
                       Rad Etish
                     </button>
-                    <button className="px-6 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors flex items-center gap-2">
+                    <button className="px-6 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 hover:shadow-md active:scale-95 transition-all duration-200 flex items-center gap-2 cursor-pointer">
                       <Eye className="w-4 h-4" />
                       Ko'rish
                     </button>
@@ -187,11 +187,11 @@ const SigneeDashboard = () => {
                     </div>
                   </div>
                   <div className="flex gap-3">
-                    <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold flex items-center gap-2">
+                    <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 hover:shadow-md active:scale-95 transition-all duration-200 font-semibold flex items-center gap-2 cursor-pointer">
                       <FileSignature className="w-4 h-4" />
                       Imzolash
                     </button>
-                    <button className="px-6 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors flex items-center gap-2">
+                    <button className="px-6 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 hover:shadow-md active:scale-95 transition-all duration-200 flex items-center gap-2 cursor-pointer">
                       <Eye className="w-4 h-4" />
                       Ko'rish
                     </button>

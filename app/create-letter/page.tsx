@@ -146,7 +146,7 @@ const CreateLetterPage: React.FC = () => {
         <div className="mb-8">
           <button
             onClick={handleBack}
-            className="flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-4 transition-colors"
+            className="flex items-center gap-2 text-slate-600 hover:text-slate-900 mb-4 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-5 h-5" />
             <span className="font-medium">{step === 'form' ? 'Shablonlar' : 'Bosh sahifa'}</span>
@@ -182,7 +182,7 @@ const CreateLetterPage: React.FC = () => {
                       key={template.id}
                       type="button"
                       onClick={() => handleTemplateSelect(template)}
-                      className="group p-6 border-2 border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-md transition-all text-left"
+                      className="group p-6 border-2 border-slate-200 rounded-xl hover:border-blue-500 hover:shadow-md active:scale-[0.98] transition-all duration-200 text-left cursor-pointer"
                     >
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-10 h-10 bg-blue-100 group-hover:bg-blue-200 rounded-lg flex items-center justify-center transition-colors">
@@ -199,7 +199,7 @@ const CreateLetterPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleTemplateSelect(null)}
-                    className="group p-6 border-2 border-dashed border-slate-300 rounded-xl hover:border-blue-500 hover:shadow-md transition-all"
+                    className="group p-6 border-2 border-dashed border-slate-300 rounded-xl hover:border-blue-500 hover:shadow-md active:scale-[0.98] transition-all duration-200 cursor-pointer"
                   >
                     <div className="flex flex-col items-center justify-center text-center min-h-[120px]">
                       <div className="w-12 h-12 bg-slate-100 group-hover:bg-blue-100 rounded-xl flex items-center justify-center mb-3 transition-colors">
@@ -426,7 +426,7 @@ const CreateLetterPage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex-1 bg-slate-600 text-white py-4 rounded-lg font-semibold hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                    className="flex-1 bg-slate-600 text-white py-4 rounded-lg font-semibold hover:bg-slate-700 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl cursor-pointer"
                   >
                     <Save className="w-5 h-5" />
                     {isSubmitting ? 'Saqlanmoqda...' : 'Qoralama Saqlash'}
@@ -435,7 +435,7 @@ const CreateLetterPage: React.FC = () => {
                     type="button"
                     onClick={(e) => handleSubmit(e as any, false)}
                     disabled={isSubmitting}
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                    className="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl cursor-pointer"
                   >
                     <Send className="w-5 h-5" />
                     {isSubmitting ? 'Yuborilmoqda...' : 'Tasdiqlashga Yuborish'}

@@ -65,7 +65,7 @@ const WriterDashboard = () => {
               <div className="font-semibold text-slate-800">{user?.name}</div>
               <div className="text-sm text-slate-600">{user?.email}</div>
             </div>
-            <button onClick={logout} className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2">
+            <button onClick={logout} className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 hover:shadow-md active:scale-95 transition-all duration-200 flex items-center gap-2 cursor-pointer">
               <LogOut className="w-4 h-4" />
               Chiqish
             </button>
@@ -109,14 +109,14 @@ const WriterDashboard = () => {
               <div className="flex gap-4">
                 <button 
                   onClick={() => setIsBuilderOpen(true)}
-                  className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center gap-2"
+                  className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 hover:shadow-md active:scale-95 transition-all duration-200 flex items-center gap-2 cursor-pointer"
                 >
                   <Sparkles className="w-5 h-5" />
                   Xat yaratish
                 </button>
                 <button 
                   onClick={() => setIsModalOpen(true)}
-                  className="bg-blue-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-900 transition-colors flex items-center gap-2"
+                  className="bg-blue-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-900 hover:shadow-md active:scale-95 transition-all duration-200 flex items-center gap-2 cursor-pointer"
                 >
                   <PlusCircle className="w-5 h-5" />
                   Oddiy Xat
@@ -134,7 +134,7 @@ const WriterDashboard = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {defaultTemplates.map((template) => (
-              <div key={template.id} className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
+              <div key={template.id} className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 hover:shadow-md transition-all duration-200">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <FileText className="w-5 h-5 text-blue-600" />
@@ -147,7 +147,7 @@ const WriterDashboard = () => {
                 <p className="text-sm text-slate-600 mb-4">{template.description}</p>
                 <button 
                   onClick={() => setIsModalOpen(true)}
-                  className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                  className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 hover:shadow-md active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <PlusCircle className="w-4 h-4" />
                   Shablondan Foydalanish
@@ -189,11 +189,11 @@ const WriterDashboard = () => {
                   <div className="flex gap-2">
                     {letter.status === 'Draft' && (
                       <>
-                        <button className="px-3 py-1.5 bg-slate-100 text-slate-700 text-sm rounded hover:bg-slate-200 flex items-center gap-1">
+                        <button className="px-3 py-1.5 bg-slate-100 text-slate-700 text-sm rounded hover:bg-slate-200 active:scale-95 transition-all duration-200 flex items-center gap-1 cursor-pointer">
                           <Edit className="w-3.5 h-3.5" />
                           Tahrirlash
                         </button>
-                        <button className="px-3 py-1.5 bg-green-600 text-white text-sm rounded hover:bg-green-700 flex items-center gap-1">
+                        <button className="px-3 py-1.5 bg-green-600 text-white text-sm rounded hover:bg-green-700 hover:shadow-md active:scale-95 transition-all duration-200 flex items-center gap-1 cursor-pointer">
                           <Send className="w-3.5 h-3.5" />
                           Yuborish
                         </button>

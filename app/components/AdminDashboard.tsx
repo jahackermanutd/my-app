@@ -61,7 +61,7 @@ const AdminDashboard = () => {
             </div>
             <button
               onClick={logout}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2"
+              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 hover:shadow-md active:scale-95 transition-all duration-200 flex items-center gap-2 cursor-pointer"
             >
               <LogOut className="w-4 h-4" />
               Chiqish
@@ -119,19 +119,19 @@ const AdminDashboard = () => {
 
         {/* Admin Actions */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <button className="bg-blue-600 text-white p-6 rounded-lg hover:bg-blue-700 transition-colors shadow-sm hover:shadow-md">
+          <button className="bg-blue-600 text-white p-6 rounded-lg hover:bg-blue-700 active:scale-95 transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer">
             <PlusCircle className="w-8 h-8 mb-3 mx-auto" />
             <div className="font-semibold">Yangi Xat</div>
           </button>
-          <button className="bg-purple-600 text-white p-6 rounded-lg hover:bg-purple-700 transition-colors shadow-sm hover:shadow-md">
+          <button className="bg-purple-600 text-white p-6 rounded-lg hover:bg-purple-700 active:scale-95 transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer">
             <Users className="w-8 h-8 mb-3 mx-auto" />
             <div className="font-semibold">Foydalanuvchilar</div>
           </button>
-          <button className="bg-green-600 text-white p-6 rounded-lg hover:bg-green-700 transition-colors shadow-sm hover:shadow-md">
+          <button className="bg-green-600 text-white p-6 rounded-lg hover:bg-green-700 active:scale-95 transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer">
             <FileStack className="w-8 h-8 mb-3 mx-auto" />
             <div className="font-semibold">Shablonlar</div>
           </button>
-          <button className="bg-slate-600 text-white p-6 rounded-lg hover:bg-slate-700 transition-colors shadow-sm hover:shadow-md">
+          <button className="bg-slate-600 text-white p-6 rounded-lg hover:bg-slate-700 active:scale-95 transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer">
             <Settings className="w-8 h-8 mb-3 mx-auto" />
             <div className="font-semibold">Sozlamalar</div>
           </button>

@@ -99,7 +99,7 @@ const LoginPage = () => {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 hover:shadow-md active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
             >
               <LogIn className="w-5 h-5" />
               Kirish
@@ -116,7 +116,7 @@ const LoginPage = () => {
                 <button
                   key={user.id}
                   onClick={() => handleQuickLogin(user.email)}
-                  className="w-full px-4 py-3 bg-slate-50 hover:bg-slate-100 rounded-lg text-left transition-colors border border-slate-200 hover:border-blue-300"
+                  className="w-full px-4 py-3 bg-slate-50 hover:bg-slate-100 hover:shadow-md active:scale-[0.98] rounded-lg text-left transition-all duration-200 border border-slate-200 hover:border-blue-300 cursor-pointer"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">

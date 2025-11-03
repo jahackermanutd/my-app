@@ -381,7 +381,7 @@ const Dashboard = () => {
                         </p>
                       </div>
                     ))}
-                    <button className="w-full p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-400 transition-colors text-sm text-gray-600 hover:text-blue-600">
+                    <button className="w-full p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-400 hover:bg-blue-50 active:scale-[0.98] transition-all duration-200 text-sm text-gray-600 hover:text-blue-600 cursor-pointer">
                       + Yangi shablon yaratish
                     </button>
                   </>
@@ -402,17 +402,17 @@ const Dashboard = () => {
               </div>
               <div className="px-6 py-4 space-y-2">
                 {hasPermission(currentUser, 'canCreateLetter') && (
-                  <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                  <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 hover:shadow-md active:scale-[0.98] transition-all duration-200 text-sm cursor-pointer">
                     + Yangi xat yaratish
                   </button>
                 )}
                 {hasPermission(currentUser, 'canViewReports') && (
-                  <button className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm">
+                  <button className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 hover:shadow-md active:scale-[0.98] transition-all duration-200 text-sm cursor-pointer">
                     📊 Hisobotlarni ko'rish
                   </button>
                 )}
                 {hasPermission(currentUser, 'canManageUsers') && (
-                  <button className="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm">
+                  <button className="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 hover:shadow-md active:scale-[0.98] transition-all duration-200 text-sm cursor-pointer">
                     👥 Foydalanuvchilarni boshqarish
                   </button>
                 )}
