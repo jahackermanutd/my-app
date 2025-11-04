@@ -165,7 +165,7 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                         type="text"
                         value={letterData.organizationName}
                         onChange={(e) => setLetterData({ ...letterData, organizationName: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-800"
                       />
                     </div>
 
@@ -177,7 +177,7 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                         type="text"
                         value={letterData.organizationAddress}
                         onChange={(e) => setLetterData({ ...letterData, organizationAddress: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-800"
                       />
                     </div>
 
@@ -190,7 +190,7 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                           type="text"
                           value={letterData.organizationPhone}
                           onChange={(e) => setLetterData({ ...letterData, organizationPhone: e.target.value })}
-                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-800"
                         />
                       </div>
                       <div>
@@ -201,7 +201,7 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                           type="email"
                           value={letterData.organizationEmail}
                           onChange={(e) => setLetterData({ ...letterData, organizationEmail: e.target.value })}
-                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-800"
                         />
                       </div>
                     </div>
@@ -255,7 +255,7 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                         required
                         value={letterData.subject}
                         onChange={(e) => setLetterData({ ...letterData, subject: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-800"
                         placeholder="Xat mavzusini kiriting"
                       />
                     </div>
@@ -270,7 +270,7 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                           required
                           value={letterData.recipientName}
                           onChange={(e) => setLetterData({ ...letterData, recipientName: e.target.value })}
-                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-800"
                         />
                       </div>
 
@@ -282,7 +282,7 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                           type="text"
                           value={letterData.recipientOrganization}
                           onChange={(e) => setLetterData({ ...letterData, recipientOrganization: e.target.value })}
-                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-800"
                         />
                       </div>
 
@@ -294,7 +294,7 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                           type="text"
                           value={letterData.recipientAddress}
                           onChange={(e) => setLetterData({ ...letterData, recipientAddress: e.target.value })}
-                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-800"
                         />
                       </div>
                     </div>
@@ -308,7 +308,7 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                         rows={12}
                         value={letterData.body}
                         onChange={(e) => setLetterData({ ...letterData, body: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-serif"
+                        className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-serif text-slate-800"
                         placeholder="Xat matnini kiriting. Har bir paragrafni yangi qatordan boshlang."
                       />
                     </div>
@@ -323,7 +323,7 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                           required
                           value={letterData.signeeName}
                           onChange={(e) => setLetterData({ ...letterData, signeeName: e.target.value })}
-                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-800"
                         />
                       </div>
 
@@ -336,7 +336,7 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                           required
                           value={letterData.signeeTitle}
                           onChange={(e) => setLetterData({ ...letterData, signeeTitle: e.target.value })}
-                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-800"
                         />
                       </div>
                     </div>

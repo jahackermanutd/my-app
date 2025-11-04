@@ -6,7 +6,19 @@ import {
   View,
   Image,
   StyleSheet,
+  Font,
 } from '@react-pdf/renderer';
+
+// Регистрируем русский шрифт для корректного отображения кириллицы
+Font.register({
+  family: 'Montserrat',
+  fonts: [
+    { src: '/fonts/Montserrat-Medium.ttf' },
+    { src: '/fonts/Montserrat-Bold.ttf', fontWeight: 'bold' },
+    { src: '/fonts/Montserrat-MediumItalic.ttf', fontStyle: 'italic' },
+    { src: '/fonts/Montserrat-BoldItalic.ttf', fontWeight: 'bold', fontStyle: 'italic' },
+  ],
+});
 
 export interface PDFLetterProps {
   reference: string;
@@ -36,6 +48,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
     fontSize: 11,
     position: 'relative',
+    fontFamily: 'Montserrat',
   },
   backgroundWatermark: {
     position: 'absolute',
@@ -45,14 +58,6 @@ const styles = StyleSheet.create({
     opacity: 0.03,
     width: 400,
     height: 400,
-  },
-  footballPattern: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    opacity: 0.02,
   },
   cornerDecoration: {
     position: 'absolute',
@@ -104,10 +109,11 @@ const styles = StyleSheet.create({
   },
   organizationBlock: {
     flex: 1,
+    maxWidth: '70%',
   },
   organizationNameMain: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: 700,
     color: '#1e293b',
     marginBottom: 2,
   },
@@ -128,26 +134,14 @@ const styles = StyleSheet.create({
     color: '#475569',
     lineHeight: 1.5,
     marginBottom: 2,
+    maxWidth: '100%',
   },
   bankInfo: {
     fontSize: 7,
     color: '#64748b',
     lineHeight: 1.5,
     marginTop: 5,
-  },
-  headerTop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12,
-    paddingBottom: 12,
-    borderBottom: '1pt solid #e2e8f0',
-  },
-  headerLeft: {
-    flex: 1,
-  },
-  headerRight: {
-    alignItems: 'flex-end',
+    maxWidth: '100%',
   },
   metaRow: {
     flexDirection: 'row',
@@ -157,7 +151,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   reference: {
-    fontWeight: 'bold',
+    fontWeight: 700,
   },
   date: {
     fontStyle: 'italic',
@@ -166,24 +160,27 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontSize: 10,
     lineHeight: 1.4,
+    maxWidth: '100%',
   },
   recipientName: {
-    fontWeight: 'bold',
+    fontWeight: 700,
     marginBottom: 3,
   },
   subject: {
     textAlign: 'center',
     fontSize: 11,
-    fontWeight: 'bold',
+    fontWeight: 700,
     marginVertical: 15,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
+    maxWidth: '100%',
   },
   bodyText: {
     fontSize: 11,
     lineHeight: 1.8,
     textAlign: 'justify',
     marginBottom: 12,
+    maxWidth: '100%',
   },
   signatureSection: {
     marginTop: 30,
@@ -199,6 +196,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
     flex: 1,
+    maxWidth: '30%',
   },
   signatureCenter: {
     flexDirection: 'column',
@@ -208,10 +206,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-end',
     flex: 1,
+    maxWidth: '30%',
   },
   signatureOrgName: {
     fontSize: 10,
-    fontWeight: 'bold',
+    fontWeight: 700,
     marginBottom: 8,
   },
   qrCode: {
@@ -220,7 +219,7 @@ const styles = StyleSheet.create({
   },
   signeeName: {
     fontSize: 10,
-    fontWeight: 'bold',
+    fontWeight: 700,
     marginTop: 8,
   },
   signeeTitle: {
@@ -255,6 +254,25 @@ const formatDate = (date: Date): string => {
   return `${day}-${month}, ${year}-yil`;
 };
 
+// Функция для разбиения длинных слов
+const breakLongWords = (text: string, maxLength: number = 40): string => {
+  const words = text.split(' ');
+  const result: string[] = [];
+  
+  words.forEach(word => {
+    if (word.length > maxLength) {
+      // Разбиваем длинное слово на части
+      for (let i = 0; i < word.length; i += maxLength) {
+        result.push(word.slice(i, i + maxLength));
+      }
+    } else {
+      result.push(word);
+    }
+  });
+  
+  return result.join(' ');
+};
+
 export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
   reference,
   date = new Date(),
@@ -272,8 +290,8 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
   logoUrl,
   qrCodeUrl,
 }) => {
-  // Split body into paragraphs
-  const paragraphs = body.split('\n').filter(p => p.trim());
+  // Split body into paragraphs and break long words
+  const paragraphs = body.split('\n').filter(p => p.trim()).map(p => breakLongWords(p));
 
   return (
     <Document>
@@ -308,9 +326,9 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
           </View>
           
           {/* Contact Information */}
-            <Text style={styles.infoLine}>
+          <Text style={styles.infoLine}>
             Toshkent viloyati, Olmaliq shahri, Olimpiya ko'chasi, Metallurg stadioni
-            </Text>
+          </Text>
           <Text style={styles.infoLine}>
             Email: pfcolmaliq@mail.ru
           </Text>
@@ -329,13 +347,13 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
 
         {/* Recipient */}
         <View style={styles.recipient}>
-          <Text style={styles.recipientName}>{recipientName}</Text>
-          {recipientOrganization && <Text>{recipientOrganization}</Text>}
-          {recipientAddress && <Text>{recipientAddress}</Text>}
+          <Text style={styles.recipientName}>{breakLongWords(recipientName)}</Text>
+          {recipientOrganization && <Text>{breakLongWords(recipientOrganization)}</Text>}
+          {recipientAddress && <Text>{breakLongWords(recipientAddress)}</Text>}
         </View>
 
         {/* Subject */}
-        <Text style={styles.subject}>{subject}</Text>
+        <Text style={styles.subject}>{breakLongWords(subject)}</Text>
 
         {/* Body - Natural text flow */}
         {paragraphs.map((paragraph, index) => (
@@ -349,7 +367,7 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
           <View style={styles.signatureRow}>
             {/* Left: Organization Name */}
             <View style={styles.signatureLeft}>
-              <Text style={styles.signatureOrgName}>{organizationName}</Text>
+              <Text style={styles.signatureOrgName}>{breakLongWords(organizationName, 20)}</Text>
             </View>
             
             {/* Center: QR Code */}
@@ -361,15 +379,15 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
             
             {/* Right: Signee Information */}
             <View style={styles.signatureRight}>
-              <Text style={styles.signeeName}>{signeeName}</Text>
-              <Text style={styles.signeeTitle}>{signeeTitle}</Text>
+              <Text style={styles.signeeName}>{breakLongWords(signeeName, 20)}</Text>
+              <Text style={styles.signeeTitle}>{breakLongWords(signeeTitle, 20)}</Text>
             </View>
           </View>
         </View>
 
         {/* Footer - Natural flow */}
         <View style={styles.footer} fixed>
-          <Text>{organizationName}</Text>
+          <Text>{breakLongWords(organizationName, 30)}</Text>
           <Text render={({ pageNumber, totalPages }) => (
             `Page ${pageNumber} of ${totalPages}`
           )} />
