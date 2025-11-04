@@ -338,7 +338,7 @@ const LetterPreview: React.FC<LetterPreviewProps> = ({
         {/* Footer - Fixed at bottom */}
         <div className="letter-footer">
           <div>{organizationName}</div>
-          <div>Sahifa {pageNumber} / {totalPages}</div>
+          <div>Sahifa {pageNumber}</div>
         </div>
       </div>
     </div>

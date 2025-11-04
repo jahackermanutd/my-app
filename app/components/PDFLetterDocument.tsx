@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   },
   organizationNameMain: {
     fontSize: 14,
-    fontWeight: 700,
+    fontWeight: 'bold',
     color: '#1e293b',
     marginBottom: 2,
   },
@@ -151,10 +151,10 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   reference: {
-    fontWeight: 700,
+    fontWeight: 'bold',
   },
   date: {
-    fontStyle: 'italic',
+    fontStyle: 'normal',
   },
   recipient: {
     marginBottom: 15,
@@ -163,13 +163,13 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
   },
   recipientName: {
-    fontWeight: 700,
+    fontWeight: 'bold',
     marginBottom: 3,
   },
   subject: {
     textAlign: 'center',
     fontSize: 11,
-    fontWeight: 700,
+    fontWeight: 'normal',
     marginVertical: 15,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
   },
   signatureOrgName: {
     fontSize: 10,
-    fontWeight: 700,
+    fontWeight: 'bold',
     marginBottom: 8,
   },
   qrCode: {
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
   },
   signeeName: {
     fontSize: 10,
-    fontWeight: 700,
+    fontWeight: 'bold',
     marginTop: 8,
   },
   signeeTitle: {
@@ -246,11 +246,11 @@ const formatDate = (date: Date): string => {
     'yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun',
     'iyul', 'avgust', 'sentabr', 'oktabr', 'noyabr', 'dekabr'
   ];
-  
+
   const day = date.getDate();
   const month = months[date.getMonth()];
   const year = date.getFullYear();
-  
+
   return `${day}-${month}, ${year}-yil`;
 };
 
@@ -258,7 +258,7 @@ const formatDate = (date: Date): string => {
 const breakLongWords = (text: string, maxLength: number = 40): string => {
   const words = text.split(' ');
   const result: string[] = [];
-  
+
   words.forEach(word => {
     if (word.length > maxLength) {
       // Разбиваем длинное слово на части
@@ -269,7 +269,7 @@ const breakLongWords = (text: string, maxLength: number = 40): string => {
       result.push(word);
     }
   });
-  
+
   return result.join(' ');
 };
 
@@ -300,23 +300,23 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
         {/* Corner Decorations */}
         <View style={[styles.cornerDecoration, styles.topLeftCorner]} fixed />
         <View style={[styles.cornerDecoration, styles.bottomRightCorner]} fixed />
-        
+
         {/* Side Accent Lines */}
         <View style={[styles.sideAccent, styles.leftAccent]} fixed />
         <View style={[styles.sideAccent, styles.rightAccent]} fixed />
-        
+
         {/* Central Watermark - Football/Star Pattern */}
         <View style={styles.backgroundWatermark} fixed>
           <Text style={{ fontSize: 200, color: '#cbd5e1', textAlign: 'center' }}>⚽</Text>
         </View>
-        
+
         {/* Header - Only on first page */}
         <View style={styles.header}>
           {/* Organization Name and Logo */}
           <View style={styles.headerRow}>
             <View style={styles.organizationBlock}>
-              <Text style={styles.organizationNameMain}>PFK AGMK MChJ</Text>
-              <Text style={styles.organizationNameSub}>Professional Football Club</Text>
+              <Text style={styles.organizationNameMain}>PFK AGMK MChJ | LLC PFK AGMK</Text>
+              <Text style={styles.organizationNameSub}>OKMK professional futbol klubi | OKMK Professional Football Club</Text>
             </View>
             {logoUrl && (
               <View style={styles.headerLogoContainer}>
@@ -324,24 +324,25 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
               </View>
             )}
           </View>
-          
+
           {/* Contact Information */}
           <Text style={styles.infoLine}>
-            Toshkent viloyati, Olmaliq shahri, Olimpiya ko'chasi, Metallurg stadioni
+            Toshkent viloyati, Olmaliq shahri, Olimpiya ko'chasi, Metallurg stadioni{"\n"}
+            Tashkent region, Almalyk city, Olympic street, Metallurg stadium
           </Text>
           <Text style={styles.infoLine}>
             Email: pfcolmaliq@mail.ru
           </Text>
-          
+
           {/* Bank Information */}
           <Text style={styles.bankInfo}>
-            "O'zmilliybank" AJ Olmaliq filiali  |  h/r: 2020 8000 6047 5378 1001  |  MFO: 00450  |  STIR: 301023341
+            Bank ma'lumotlari | Bank details: "O'zmilliybank" AJ Olmaliq filiali  |  h/r: 2020 8000 6047 5378 1001  |  MFO: 00450  |  STIR: 301023341
           </Text>
         </View>
 
         {/* Meta Information */}
         <View style={styles.metaRow}>
-          <Text style={styles.reference}>Ref: {reference}</Text>
+          <Text style={styles.reference}># {reference}</Text>
           <Text style={styles.date}>{formatDate(date)}</Text>
         </View>
 
@@ -369,14 +370,14 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
             <View style={styles.signatureLeft}>
               <Text style={styles.signatureOrgName}>{breakLongWords(organizationName, 20)}</Text>
             </View>
-            
+
             {/* Center: QR Code */}
             <View style={styles.signatureCenter}>
               {qrCodeUrl && (
                 <Image src={qrCodeUrl} style={styles.qrCode} />
               )}
             </View>
-            
+
             {/* Right: Signee Information */}
             <View style={styles.signatureRight}>
               <Text style={styles.signeeName}>{breakLongWords(signeeName, 20)}</Text>
@@ -389,7 +390,7 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
         <View style={styles.footer} fixed>
           <Text>{breakLongWords(organizationName, 30)}</Text>
           <Text render={({ pageNumber, totalPages }) => (
-            `Page ${pageNumber} of ${totalPages}`
+            `Sahifa ${pageNumber}`
           )} />
         </View>
       </Page>

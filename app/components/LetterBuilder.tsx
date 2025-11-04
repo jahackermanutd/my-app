@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { 
   FileText, Upload, Download, Eye, Save, 
-  Image as ImageIcon, Settings, X, CheckCircle
+  Image as ImageIcon, Settings, X as XIcon, CheckCircle
 } from 'lucide-react';
 import { PDFLetterDocument } from './PDFLetterDocument';
 import { 
@@ -41,10 +41,10 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
     recipientOrganization: initialData?.recipientOrganization || '',
     recipientAddress: initialData?.recipientAddress || '',
     body: initialData?.body || '',
-    signeeName: initialData?.signeeName || 'Mirzaev B.A.',
+    signeeName: initialData?.signeeName || 'Mirzayev B.A.',
     signeeTitle: initialData?.signeeTitle || 'Bosh Direktor',
     organizationName: 'PFK AGMK MChJ',
-    organizationAddress: 'Almaliq shahar, O\'zbekiston',
+    organizationAddress: 'Toshkent viloyati, Olmaliq shahri, O\'zbekiston',
     organizationPhone: '+998 70 123 45 67',
     organizationEmail: 'info@agmk.uz',
     logoUrl: initialData?.logoUrl || '',
@@ -118,27 +118,31 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
           <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
-                <FileText className="w-6 h-6 text-white" />
+                <FileText className="w-6 h-6 text-black" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white">Xat Yaratish va Dizayn</h2>
-                <p className="text-sm text-blue-100">Professional A4 formatdagi rasmiy xat</p>
+                <h2 className="text-xl font-bold text-white">Xat Yaratish</h2>
+                <p className="text-sm text-blue-100">A4 formatida</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setActiveTab(activeTab === 'edit' ? 'preview' : 'edit')}
-                className="px-4 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-white font-medium transition-colors flex items-center gap-2"
+                className="px-4 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-white font-medium transition-colors flex items-center gap-2 cursor-pointer"
               >
-                <Eye className="w-4 h-4" />
-                {activeTab === 'edit' ? 'Ko\'rish' : 'Tahrirlash'}
+                <Eye className="w-4 h-4 text-black" />
+                <span className="text-slate-900 font-semibold">
+                  {activeTab === 'edit' ? "Ko'rish" : "Tahrirlash"}
+                </span>
               </button>
               {onClose && (
                 <button
-                  onClick={onClose}
-                  className="w-8 h-8 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg flex items-center justify-center transition-colors"
+                  className="w-10 h-10 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg flex items-center justify-center transition-colors cursor-pointer"
+                onClick={onClose}
+                  
+                  title="Yopish"
                 >
-                  <X className="w-5 h-5 text-white" />
+                  <XIcon className="w-6 h-6 text-black" />
                 </button>
               )}
             </div>
@@ -316,7 +320,7 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-slate-700 mb-2">
-                          Imzolovchi Ismi *
+                          Imzolovchi shaxs *
                         </label>
                         <input
                           type="text"
@@ -348,14 +352,14 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                   <button
                     onClick={handleSaveDraft}
                     disabled={isSaving}
-                    className="flex-1 bg-slate-600 text-white py-3 rounded-lg font-semibold hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="flex-1 bg-slate-600 text-white py-3 rounded-lg font-semibold hover:bg-slate-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
                   >
                     <Save className="w-5 h-5" />
                     {isSaving ? 'Saqlanmoqda...' : 'Qoralama Saqlash'}
                   </button>
                   <button
                     onClick={handleGeneratePDF}
-                    className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                    className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Download className="w-5 h-5" />
                     PDF Yuklab Olish
