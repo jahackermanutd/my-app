@@ -56,7 +56,7 @@ const LetterPreview: React.FC<LetterPreviewProps> = ({
           padding: 0;
           position: relative;
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-          font-family: 'Times New Roman', Times, serif;
+          font-family: 'Montserrat', Times, serif;
           color: #000;
         }
 
@@ -156,11 +156,16 @@ const LetterPreview: React.FC<LetterPreviewProps> = ({
           margin-bottom: 15mm;
           text-justify: inter-word;
           word-spacing: normal;
+          word-break: break-word;
+          overflow-wrap: break-word;
+          hyphens: auto;
         }
 
         .letter-body p {
           margin-bottom: 5mm;
           text-indent: 10mm;
+          word-break: break-word;
+          overflow-wrap: break-word;
         }
 
         .letter-body p:first-child {

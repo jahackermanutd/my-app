@@ -51,7 +51,7 @@ const AdminDashboard = () => {
             </div>
             <div>
               <h1 className="text-2xl font-bold text-slate-800">Administrator Paneli</h1>
-              <p className="text-sm text-slate-600">To'liq tizim boshqaruvi</p>
+              <p className="text-sm text-slate-600">111To'liq tizim boshqaruvi</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
