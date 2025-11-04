@@ -180,7 +180,16 @@ const styles = StyleSheet.create({
     lineHeight: 1.8,
     textAlign: 'justify',
     marginBottom: 12,
-    maxWidth: '100%',
+    // Уберите maxWidth, если он был
+    // Добавьте:
+    overflowWrap: 'break-word', // ← не работает в react-pdf
+    // Вместо этого — просто не трогайте, react-pdf сам ломает слова
+    bodyTextFirst: {
+      textIndent: '0mm' // — по умолчанию 0, можно не указывать
+    },
+    bodyTextIndented: {
+      textIndent: '10mm', // ← отступ только у НЕ первых
+    },
   },
   signatureSection: {
     marginTop: 30,
@@ -291,7 +300,7 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
   qrCodeUrl,
 }) => {
   // Split body into paragraphs and break long words
-  const paragraphs = body.split('\n').filter(p => p.trim()).map(p => breakLongWords(p));
+  const paragraphs = body.split('\n\n').filter(p => p.trim());
 
   return (
     <Document>
@@ -357,10 +366,16 @@ export const PDFLetterDocument: React.FC<PDFLetterProps> = ({
 
         {/* Body - Natural text flow */}
         {paragraphs.map((paragraph, index) => (
-          <Text key={index} style={styles.bodyText}>
-            {paragraph}
-          </Text>
-        ))}
+      <Text
+        key={index}
+        style={[
+          styles.bodyText,
+          index === 0 ? styles.bodyTextFirst : styles.bodyTextIndented
+        ]}
+      >
+        {paragraph}
+      </Text>
+    ))}
 
         {/* Signature Section - Keep together on same page */}
         <View style={styles.signatureSection} wrap={false}>
