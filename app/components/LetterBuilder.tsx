@@ -378,6 +378,13 @@ const LetterBuilder: React.FC<LetterBuilderProps> = ({
                   pageNumber={1}
                   totalPages={1}
                 />
+                
+                {/* Предупреждение ВНЕ макета письма */}
+                {letterData.body.length > 1300 && (
+                  <div className="mt-4 text-sm text-orange-600 bg-orange-50 p-3 rounded-lg text-center inline-block">
+                  ⚠️ Matn bir nechta sahifani qamrab oladi. To‘liq ko‘rinish faqat PDFda.
+                </div>
+                )}
               </div>
             </div>
           </div>

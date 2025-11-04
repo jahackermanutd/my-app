@@ -19,11 +19,13 @@ export interface LetterPreviewProps {
   organizationPhone?: string;
   organizationEmail?: string;
   logoUrl?: string;
-  watermarkUrl?: string;
   qrCodeData?: string;
   pageNumber?: number;
   totalPages?: number;
 }
+
+// Ограничение: ~1800 символов ≈ 1 страница A4 в PDF
+const MAX_PREVIEW_CHARS = 1100;
 
 const LetterPreview: React.FC<LetterPreviewProps> = ({
   reference,
@@ -40,11 +42,15 @@ const LetterPreview: React.FC<LetterPreviewProps> = ({
   organizationPhone,
   organizationEmail,
   logoUrl,
-  watermarkUrl,
   qrCodeData,
   pageNumber = 1,
   totalPages = 1,
 }) => {
+  // Обрезаем текст для превью, но оставляем читаемым
+  const displayBody = body.length > MAX_PREVIEW_CHARS 
+    ? body.substring(0, MAX_PREVIEW_CHARS) + '…' 
+    : body;
+
   return (
     <div className="letter-preview">
       <style jsx>{`
@@ -58,29 +64,21 @@ const LetterPreview: React.FC<LetterPreviewProps> = ({
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
           font-family: 'Montserrat', Times, serif;
           color: #000;
+          overflow: hidden;
         }
 
         .letter-page {
           width: 210mm;
-          height: 297mm;
+          min-height: 297mm;
           padding: 0;
           margin: 0;
           position: relative;
-          page-break-after: always;
           box-sizing: border-box;
           background: white;
         }
 
         .letter-header {
-          position: absolute;
-          top: 20mm;
-          left: 20mm;
-          right: 20mm;
-          height: 40mm;
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          padding-bottom: 10mm;
+          padding: 20mm 20mm 10mm;
           border-bottom: 2px solid #1e293d;
         }
 
@@ -108,12 +106,10 @@ const LetterPreview: React.FC<LetterPreviewProps> = ({
           color: #4a5565;
         }
 
-        .letter-content-wrapper {
-          position: absolute;
-          top: 70mm;
-          left: 20mm;
-          right: 20mm;
-          bottom: 40mm;
+        .letter-content {
+          padding: 0 20mm;
+          margin-top: 10mm;
+          margin-bottom: 80mm; /* место для подписи и футера */
         }
 
         .letter-meta {
@@ -153,9 +149,7 @@ const LetterPreview: React.FC<LetterPreviewProps> = ({
           font-size: 11pt;
           line-height: 1.6;
           text-align: justify;
-          margin-bottom: 15mm;
           text-justify: inter-word;
-          word-spacing: normal;
           word-break: break-word;
           overflow-wrap: break-word;
           hyphens: auto;
@@ -163,57 +157,39 @@ const LetterPreview: React.FC<LetterPreviewProps> = ({
 
         .letter-body p {
           margin-bottom: 5mm;
-          text-indent: 10mm;
-          word-break: break-word;
-          overflow-wrap: break-word;
         }
 
         .letter-body p:first-child {
-          text-indent: 0;
+          text-indent: 10mm;
         }
 
         .signature-section {
           position: absolute;
           bottom: 50mm;
+          left: 20mm;
           right: 20mm;
-          width: 80mm;
           display: flex;
-          flex-direction: column;
+          justify-content: space-between;
           align-items: center;
         }
 
-        .signature-org {
-          font-size: 11pt;
-          font-weight: bold;
-          margin-bottom: 5mm;
-          text-align: center;
+        .signature-org,
+        .signature-qr,
+        .signature-signee {
+          width: 30%;
         }
 
-        .signature-qr {
-          margin: 5mm 0;
-          display: flex;
-          justify-content: center;
-        }
+        .signature-org { text-align: left; }
+        .signature-qr { text-align: center; }
+        .signature-signee { text-align: right; }
 
         .signature-qr svg {
           width: 25mm;
           height: 25mm;
         }
 
-        .signature-signee {
-          font-size: 11pt;
-          text-align: center;
-          margin-top: 3mm;
-        }
-
-        .signee-name {
-          font-weight: bold;
-        }
-
-        .signee-title {
-          font-style: italic;
-          color: #4a5565;
-        }
+        .signee-name { font-weight: bold; }
+        .signee-title { font-style: italic; color: #4a5565; }
 
         .letter-footer {
           position: absolute;
@@ -226,116 +202,85 @@ const LetterPreview: React.FC<LetterPreviewProps> = ({
           color: #4a5565;
           display: flex;
           justify-content: space-between;
-          align-items: center;
         }
 
-        .watermark {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          opacity: 0.05;
-          width: 150mm;
-          height: 150mm;
-          object-fit: contain;
-          pointer-events: none;
-          z-index: 0;
-        }
-
-        @media print {
-          .letter-preview {
-            box-shadow: none;
-            margin: 0;
-          }
-
-          .letter-page {
-            page-break-after: always;
-            margin: 0;
-            padding: 0;
-          }
-
-          @page {
-            size: A4;
-            margin: 0;
-          }
+        .preview-warning {
+          background: #fffbeb;
+          border: 1px solid #fbbf24;
+          color: #92400e;
+          padding: 8px 12px;
+          border-radius: 6px;
+          margin-top: 12px;
+          font-size: 13px;
         }
       `}</style>
 
       <div className="letter-page">
-        {/* Watermark */}
-        {watermarkUrl && (
-          <img src={watermarkUrl} alt="" className="watermark" />
-        )}
-
-        {/* Header - Fixed at top */}
+        {/* Header */}
         <div className="letter-header">
-          <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             {logoUrl && (
-              <img src={logoUrl} alt={organizationName} className="header-logo" />
+              <div>
+                <img src={logoUrl} alt={organizationName} className="header-logo" />
+              </div>
             )}
-          </div>
-          <div className="header-info">
-            <div className="header-org-name">{organizationName}</div>
-            {organizationAddress && (
-              <div className="header-contact">{organizationAddress}</div>
-            )}
-            {organizationPhone && (
-              <div className="header-contact">Tel: {organizationPhone}</div>
-            )}
-            {organizationEmail && (
-              <div className="header-contact">Email: {organizationEmail}</div>
-            )}
+            <div className="header-info">
+              <div className="header-org-name">{organizationName}</div>
+              {organizationAddress && <div className="header-contact">{organizationAddress}</div>}
+              {organizationPhone && <div className="header-contact">Tel: {organizationPhone}</div>}
+              {organizationEmail && <div className="header-contact">Email: {organizationEmail}</div>}
+            </div>
           </div>
         </div>
 
-        {/* Content Area - Between header and footer */}
-        <div className="letter-content-wrapper">
-          {/* Meta Information */}
+        {/* Content */}
+        <div className="letter-content">
           <div className="letter-meta">
             <div className="letter-reference">№ {reference}</div>
             <div className="letter-date">{formatLetterDate(date)}</div>
           </div>
 
-          {/* Recipient */}
           <div className="letter-recipient">
             <div className="recipient-name">{recipientName}</div>
             {recipientOrganization && <div>{recipientOrganization}</div>}
             {recipientAddress && <div>{recipientAddress}</div>}
           </div>
 
-          {/* Subject */}
           <div className="letter-subject">{subject}</div>
 
-          {/* Body */}
+          {/* Исправленная обработка абзацев */}
           <div className="letter-body">
-            {body.split('\n').map((paragraph, index) => (
-              paragraph.trim() && <p key={index}>{paragraph}</p>
-            ))}
+            {displayBody
+              .split(/\r?\n\r?\n/)
+              .filter(p => p.trim())
+              .map((paragraph, idx) => (
+                <p key={idx}>
+                  {paragraph.split(/\r?\n/).map((line, i, arr) => (
+                    <React.Fragment key={i}>
+                      {line}
+                      {i < arr.length - 1 && <br />}
+                    </React.Fragment>
+                  ))}
+                </p>
+              ))}
           </div>
         </div>
 
-        {/* Signature - Fixed position above footer */}
+        {/* Signature */}
         <div className="signature-section">
           <div className="signature-org">{organizationName}</div>
-          
           {qrCodeData && (
             <div className="signature-qr">
-              <QRCodeSVG 
-                value={qrCodeData}
-                size={95}
-                level="H"
-                includeMargin={true}
-              />
+              <QRCodeSVG value={qrCodeData} size={95} level="H" includeMargin={true} />
             </div>
           )}
-
           <div className="signature-signee">
             <div className="signee-name">{signeeName}</div>
             <div className="signee-title">{signeeTitle}</div>
           </div>
         </div>
 
-        {/* Footer - Fixed at bottom */}
+        {/* Footer */}
         <div className="letter-footer">
           <div>{organizationName}</div>
           <div>Sahifa {pageNumber}</div>
